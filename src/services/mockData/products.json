@@ -1,0 +1,92 @@
+[
+  {
+    "Id": 1,
+    "name": "Kundan Chandelier Earrings",
+    "price": 85000,
+    "category": "Earrings",
+    "metal": "Gold",
+    "gemstones": ["Kundan", "Pearl"],
+    "images": [
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500",
+      "https://images.unsplash.com/photo-1596944924591-4b8504bb7c9a?w=500"
+    ],
+    "stock": 5,
+    "description": "Exquisite traditional Kundan chandelier earrings with pearl drops, perfect for weddings and special occasions.",
+    "weight": "35g",
+    "purity": "22K Gold",
+    "occasion": "Wedding",
+    "artform": "Kundan"
+  },
+  {
+    "Id": 2,
+    "name": "Diamond Solitaire Ring",
+    "price": 125000,
+    "category": "Rings",
+    "metal": "White Gold",
+    "gemstones": ["Diamond"], 
+    "images": [
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500",
+      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500"
+    ],
+    "stock": 3,
+    "description": "Classic solitaire diamond ring with brilliant cut diamond in elegant white gold setting.",
+    "weight": "8g",
+    "purity": "18K White Gold",
+    "occasion": "Engagement",
+    "artform": "Contemporary"
+  },
+  {
+    "Id": 3,
+    "name": "Temple Jewelry Necklace Set",
+    "price": 150000,
+    "category": "Necklaces",
+    "metal": "Gold",
+    "gemstones": ["Ruby", "Emerald"],
+    "images": [
+      "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=500",
+      "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=500"
+    ],
+    "stock": 2,
+    "description": "Traditional South Indian temple jewelry necklace set with intricate goldwork and precious stones.",
+    "weight": "125g",
+    "purity": "22K Gold",
+    "occasion": "Festival",
+    "artform": "Temple"
+  },
+  {
+    "Id": 4,
+    "name": "Polki Diamond Bracelet",
+    "price": 95000,
+    "category": "Bracelets",
+    "metal": "Gold",
+    "gemstones": ["Polki Diamond"],
+    "images": [
+      "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=500",
+      "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=500"
+    ],
+    "stock": 4,
+    "description": "Elegant Polki diamond bracelet with traditional Mughal-inspired design and gold detailing.",
+    "weight": "45g",
+    "purity": "22K Gold",
+    "occasion": "Party",
+    "artform": "Polki"
+  },
+  {
+    "Id": 5,
+    "name": "Emerald Drop Pendant",
+    "price": 65000,
+    "category": "Pendants",
+    "metal": "Gold",
+    "gemstones": ["Emerald", "Diamond"],
+    "images": [
+      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500",
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500"
+    ],
+    "stock": 6,
+    "description": "Beautiful emerald drop pendant surrounded by brilliant diamonds in gold setting.",
+    "weight": "15g",
+    "purity": "18K Gold",
+    "occasion": "Daily Wear",
+    "artform": "Contemporary"
+  }
+]

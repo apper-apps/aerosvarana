@@ -1,0 +1,225 @@
+[
+  {
+    "Id": 1,
+    "customerId": "CUST001",
+    "customerName": "Priya Sharma",
+    "designerId": "DES001",
+    "designerName": "Rajesh Kumar",
+    "specifications": {
+      "type": "Necklace Set",
+      "metal": "22K Gold",
+      "gemstones": ["Ruby", "Diamond"],
+      "occasion": "Wedding",
+      "style": "Traditional",
+      "notes": "Heavy bridal necklace with matching earrings"
+    },
+    "referenceImages": [
+      "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=500",
+      "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=500"
+    ],
+    "status": "In Progress",
+    "currentMilestone": "Wax Model Creation",
+    "milestones": [
+      {
+        "id": 1,
+        "name": "Order Received",
+        "status": "completed",
+        "date": "2024-01-15T10:00:00Z",
+        "images": [],
+        "notes": "Order placed and payment confirmed"
+      },
+      {
+        "id": 2,
+        "name": "Design Sketch",
+        "status": "completed", 
+        "date": "2024-01-18T14:30:00Z",
+        "images": ["https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=300"],
+        "notes": "Initial design approved by customer"
+      },
+      {
+        "id": 3,
+        "name": "Wax Model Creation",
+        "status": "in_progress",
+        "date": null,
+        "images": [],
+        "notes": "Creating detailed wax model"
+      },
+      {
+        "id": 4,
+        "name": "Metal Casting",
+        "status": "pending",
+        "date": null,
+        "images": [],
+        "notes": ""
+      },
+      {
+        "id": 5,
+        "name": "Stone Setting",
+        "status": "pending",
+        "date": null,
+        "images": [],
+        "notes": ""
+      },
+      {
+        "id": 6,
+        "name": "Final Polish",
+        "status": "pending",
+        "date": null,
+        "images": [],
+        "notes": ""
+      },
+      {
+        "id": 7,
+        "name": "Quality Check",
+        "status": "pending",
+        "date": null,
+        "images": [],
+        "notes": ""
+      },
+      {
+        "id": 8,
+        "name": "Delivery",
+        "status": "pending",
+        "date": null,
+        "images": [],
+        "notes": ""
+      }
+    ],
+    "budget": 250000,
+    "estimatedCompletion": "2024-02-15T00:00:00Z",
+    "createdAt": "2024-01-15T10:00:00Z",
+    "priority": "high"
+  },
+  {
+    "Id": 2,
+    "customerId": "CUST002",
+    "customerName": "Arjun Patel",
+    "designerId": "DES002",
+    "designerName": "Meera Joshi",
+    "specifications": {
+      "type": "Engagement Ring",
+      "metal": "18K White Gold",
+      "gemstones": ["Diamond"],
+      "occasion": "Engagement",
+      "style": "Contemporary",
+      "notes": "Simple solitaire with side stones"
+    },
+    "referenceImages": [
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500"
+    ],
+    "status": "Design Approval",
+    "currentMilestone": "Design Sketch",
+    "milestones": [
+      {
+        "id": 1,
+        "name": "Order Received",
+        "status": "completed",
+        "date": "2024-01-20T09:00:00Z",
+        "images": [],
+        "notes": "Order placed and consultation completed"
+      },
+      {
+        "id": 2,
+        "name": "Design Sketch",
+        "status": "awaiting_approval",
+        "date": "2024-01-22T16:00:00Z",
+        "images": ["https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=300"],
+        "notes": "Design sketch ready for customer approval"
+      }
+    ],
+    "budget": 180000,
+    "estimatedCompletion": "2024-02-20T00:00:00Z",
+    "createdAt": "2024-01-20T09:00:00Z",
+    "priority": "medium"
+  },
+  {
+    "Id": 3,
+    "customerId": "CUST003",
+    "customerName": "Kavya Reddy",
+    "designerId": "DES001",
+    "designerName": "Rajesh Kumar",
+    "specifications": {
+      "type": "Temple Jewelry Set",
+      "metal": "22K Gold",
+      "gemstones": ["Emerald", "Ruby"],
+      "occasion": "Festival",
+      "style": "Traditional",
+      "notes": "Complete temple jewelry set with necklace, earrings, and bangles"
+    },
+    "referenceImages": [
+      "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=500"
+    ],
+    "status": "Completed",
+    "currentMilestone": "Delivery",
+    "milestones": [
+      {
+        "id": 1,
+        "name": "Order Received",
+        "status": "completed",
+        "date": "2024-01-05T11:00:00Z",
+        "images": [],
+        "notes": "Order placed with advance payment"
+      },
+      {
+        "id": 2,
+        "name": "Design Sketch",
+        "status": "completed",
+        "date": "2024-01-08T15:00:00Z",
+        "images": ["https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=300"],
+        "notes": "Traditional temple design approved"
+      },
+      {
+        "id": 3,
+        "name": "Wax Model Creation",
+        "status": "completed",
+        "date": "2024-01-12T10:00:00Z",
+        "images": [],
+        "notes": "Wax models completed for all pieces"
+      },
+      {
+        "id": 4,
+        "name": "Metal Casting",
+        "status": "completed",
+        "date": "2024-01-16T14:00:00Z",
+        "images": [],
+        "notes": "Gold casting completed"
+      },
+      {
+        "id": 5,
+        "name": "Stone Setting",
+        "status": "completed",
+        "date": "2024-01-20T12:00:00Z",
+        "images": [],
+        "notes": "All stones set perfectly"
+      },
+      {
+        "id": 6,
+        "name": "Final Polish",
+        "status": "completed",
+        "date": "2024-01-22T16:00:00Z",
+        "images": [],
+        "notes": "Final polish and finishing completed"
+      },
+      {
+        "id": 7,
+        "name": "Quality Check",
+        "status": "completed",
+        "date": "2024-01-23T10:00:00Z",
+        "images": ["https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=300"],
+        "notes": "Quality approved, ready for delivery"
+      },
+      {
+        "id": 8,
+        "name": "Delivery",
+        "status": "completed",
+        "date": "2024-01-25T14:00:00Z",
+        "images": [],
+        "notes": "Delivered successfully to customer"
+      }
+    ],
+    "budget": 320000,
+    "estimatedCompletion": "2024-01-25T00:00:00Z",
+    "createdAt": "2024-01-05T11:00:00Z",
+    "priority": "high"
+  }
+]

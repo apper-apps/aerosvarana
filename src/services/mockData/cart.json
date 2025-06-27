@@ -1,0 +1,32 @@
+[
+  {
+    "Id": 1,
+    "productId": 1,
+    "quantity": 1,
+    "selectedOptions": {
+      "size": "Medium",
+      "engraving": ""
+    },
+    "addedAt": "2024-01-25T10:00:00Z"
+  },
+  {
+    "Id": 2,
+    "productId": 3,
+    "quantity": 1,
+    "selectedOptions": {
+      "size": "Standard",
+      "engraving": "PM & RS"
+    },
+    "addedAt": "2024-01-25T11:30:00Z"
+  },
+  {
+    "Id": 3,
+    "productId": 5,
+    "quantity": 2,
+    "selectedOptions": {
+      "size": "Small",
+      "engraving": ""
+    },
+    "addedAt": "2024-01-25T14:15:00Z"
+  }
+]

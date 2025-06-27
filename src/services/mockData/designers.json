@@ -1,0 +1,119 @@
+[
+  {
+    "Id": 1,
+    "userId": "DES001",
+    "name": "Rajesh Kumar",
+    "bio": "Master craftsman with 25 years of experience in traditional Indian jewelry making. Specializes in Kundan, Polki, and Temple jewelry with expertise in intricate goldwork and stone setting.",
+    "specialties": ["Kundan", "Polki", "Temple Jewelry", "Traditional Goldwork"],
+    "portfolio": [
+      {
+        "id": 1,
+        "image": "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=500",
+        "title": "Kundan Bridal Set",
+        "description": "Traditional Kundan bridal necklace set with matching earrings",
+        "tags": ["Kundan", "Gold", "Bridal", "Traditional"],
+        "metal": "22K Gold",
+        "gemstones": ["Kundan", "Pearl"],
+        "completionTime": "45 days"
+      },
+      {
+        "id": 2,
+        "image": "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=500",
+        "title": "Temple Jewelry Necklace",
+        "description": "South Indian temple jewelry with intricate deity motifs",
+        "tags": ["Temple", "Gold", "Traditional", "Ruby"],
+        "metal": "22K Gold", 
+        "gemstones": ["Ruby", "Emerald"],
+        "completionTime": "30 days"
+      },
+      {
+        "id": 3,
+        "image": "https://images.unsplash.com/photo-1596944924591-4b8504bb7c9a?w=500",
+        "title": "Polki Diamond Choker",
+        "description": "Elegant Polki diamond choker with traditional design",
+        "tags": ["Polki", "Diamond", "Choker", "Traditional"],
+        "metal": "22K Gold",
+        "gemstones": ["Polki Diamond"],
+        "completionTime": "35 days"
+      }
+    ],
+    "rating": 4.9,
+    "completedOrders": 156,
+    "activeOrders": 8,
+    "experience": "25 years",
+    "location": "Jaipur, Rajasthan",
+    "pricing": {
+      "consultationFee": 2000,
+      "designFee": 5000,
+      "makingCharges": "12% of gold value"
+    }
+  },
+  {
+    "Id": 2,
+    "userId": "DES002", 
+    "name": "Meera Joshi",
+    "bio": "Contemporary jewelry designer with expertise in modern diamond jewelry and engagement rings. Known for innovative designs that blend traditional Indian aesthetics with modern elegance.",
+    "specialties": ["Diamond Jewelry", "Engagement Rings", "Contemporary Design", "Platinum Work"],
+    "portfolio": [
+      {
+        "id": 1,
+        "image": "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500",
+        "title": "Solitaire Engagement Ring",
+        "description": "Classic solitaire diamond ring with modern twist",
+        "tags": ["Diamond", "Solitaire", "Engagement", "Contemporary"],
+        "metal": "18K White Gold",
+        "gemstones": ["Diamond"],
+        "completionTime": "20 days"
+      },
+      {
+        "id": 2,
+        "image": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500",
+        "title": "Diamond Tennis Bracelet",
+        "description": "Elegant diamond tennis bracelet in white gold",
+        "tags": ["Diamond", "Bracelet", "Contemporary", "White Gold"],
+        "metal": "18K White Gold",
+        "gemstones": ["Diamond"],
+        "completionTime": "25 days"
+      }
+    ],
+    "rating": 4.8,
+    "completedOrders": 89,
+    "activeOrders": 5,
+    "experience": "12 years",
+    "location": "Mumbai, Maharashtra",
+    "pricing": {
+      "consultationFee": 1500,
+      "designFee": 4000,
+      "makingCharges": "10% of metal value"
+    }
+  },
+  {
+    "Id": 3,
+    "userId": "DES003",
+    "name": "Aruna Devi",
+    "bio": "Specialized in South Indian traditional jewelry with focus on antique finishes and heritage designs. Expert in temple jewelry, gold beadwork, and traditional Kerala ornaments.",
+    "specialties": ["South Indian Jewelry", "Antique Finish", "Temple Work", "Kerala Ornaments"],
+    "portfolio": [
+      {
+        "id": 1,
+        "image": "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=500",
+        "title": "Kerala Temple Necklace",
+        "description": "Traditional Kerala temple jewelry with coin motifs",
+        "tags": ["Temple", "Kerala", "Traditional", "Antique"],
+        "metal": "22K Gold",
+        "gemstones": ["Ruby"],
+        "completionTime": "40 days"
+      }
+    ],
+    "rating": 4.7,
+    "completedOrders": 134,
+    "activeOrders": 6,
+    "experience": "18 years", 
+    "location": "Kochi, Kerala",
+    "pricing": {
+      "consultationFee": 1800,
+      "designFee": 4500,
+      "makingCharges": "11% of gold value"
+    }
+  }
+]
