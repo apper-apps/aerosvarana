@@ -1,4 +1,4 @@
-import productsData from "@/mockData/products.json";
+import productsData from "@/services/mockData/products.json";
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
