@@ -6,7 +6,7 @@ import ApperIcon from '@/components/ApperIcon';
 import LoadingSpinner from '@/components/atoms/LoadingSpinner';
 
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState('dashboard');
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
     totalUsers: 0,
@@ -124,11 +124,12 @@ export default function AdminDashboard() {
     return colors[status] || 'bg-gray-100 text-gray-800';
   };
 
-  const tabs = [
-    { id: 'overview', label: 'Overview', icon: 'BarChart3' },
-    { id: 'orders', label: 'Orders', icon: 'Package' },
+const tabs = [
+    { id: 'dashboard', label: 'Dashboard', icon: 'BarChart3' },
+    { id: 'orders', label: 'All Orders', icon: 'Package' },
+    { id: 'custom-orders', label: 'Custom Orders', icon: 'Palette' },
     { id: 'users', label: 'Users', icon: 'Users' },
-    { id: 'designers', label: 'Designers', icon: 'Palette' },
+    { id: 'designers', label: 'Designers', icon: 'Brush' },
     { id: 'analytics', label: 'Analytics', icon: 'TrendingUp' },
     { id: 'settings', label: 'Settings', icon: 'Settings' }
   ];
@@ -261,10 +262,81 @@ export default function AdminDashboard() {
             </nav>
           </div>
 
-          <div className="p-6">
-            {/* Overview Tab */}
-            {activeTab === 'overview' && (
+<div className="p-6">
+            {/* Dashboard Tab */}
+            {activeTab === 'dashboard' && (
               <div className="space-y-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {/* Quick Stats */}
+                  <div>
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Platform Overview</h2>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-blue-50 p-4 rounded-lg">
+                        <div className="flex items-center">
+                          <ApperIcon name="TrendingUp" size={20} className="text-blue-600 mr-2" />
+                          <div>
+                            <p className="text-sm text-blue-600">Monthly Growth</p>
+                            <p className="text-lg font-bold text-blue-900">+{stats.monthlyGrowth}%</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="bg-green-50 p-4 rounded-lg">
+                        <div className="flex items-center">
+                          <ApperIcon name="DollarSign" size={20} className="text-green-600 mr-2" />
+                          <div>
+                            <p className="text-sm text-green-600">Revenue</p>
+                            <p className="text-lg font-bold text-green-900">₹{(stats.totalRevenue / 100000).toFixed(1)}L</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="bg-purple-50 p-4 rounded-lg">
+                        <div className="flex items-center">
+                          <ApperIcon name="Users" size={20} className="text-purple-600 mr-2" />
+                          <div>
+                            <p className="text-sm text-purple-600">Active Users</p>
+                            <p className="text-lg font-bold text-purple-900">{stats.totalUsers}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="bg-orange-50 p-4 rounded-lg">
+                        <div className="flex items-center">
+                          <ApperIcon name="Clock" size={20} className="text-orange-600 mr-2" />
+                          <div>
+                            <p className="text-sm text-orange-600">Pending</p>
+                            <p className="text-lg font-bold text-orange-900">{stats.pendingApprovals}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Recent Activity */}
+                  <div>
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">Recent Activity</h2>
+                    <div className="space-y-3">
+                      {recentOrders.slice(0, 5).map((order, index) => (
+                        <div key={order.id} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                          <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                            <ApperIcon name="Package" size={16} className="text-blue-600" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-gray-900 truncate">
+                              {order.customer} placed order {order.id}
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              ₹{order.amount.toLocaleString()} • {order.product}
+                            </p>
+                          </div>
+                          <Badge className={getStatusColor(order.status)} size="sm">
+                            {order.status.replace('-', ' ')}
+                          </Badge>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Recent Orders Table */}
                 <div>
                   <h2 className="text-xl font-semibold text-gray-900 mb-4">Recent Orders</h2>
                   <div className="overflow-x-auto">
@@ -288,6 +360,9 @@ export default function AdminDashboard() {
                           </th>
                           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Status
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Actions
                           </th>
                         </tr>
                       </thead>
@@ -314,11 +389,232 @@ export default function AdminDashboard() {
                                 {order.status.replace('-', ' ')}
                               </Badge>
                             </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                              <Button variant="outline" size="sm">
+                                View
+                              </Button>
+                              <Button variant="outline" size="sm">
+                                Edit
+                              </Button>
+                            </td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* All Orders Tab */}
+            {activeTab === 'orders' && (
+              <div>
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-xl font-semibold text-gray-900">All Orders Management</h2>
+                  <div className="flex space-x-2">
+                    <Button variant="outline">
+                      <ApperIcon name="Filter" size={20} className="mr-2" />
+                      Filter
+                    </Button>
+                    <Button variant="outline">
+                      <ApperIcon name="Download" size={20} className="mr-2" />
+                      Export
+                    </Button>
+                  </div>
+                </div>
+                
+                <div className="overflow-x-auto">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Order ID
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Customer
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Designer
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Product
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Amount
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Status
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Date
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {recentOrders.map((order) => (
+                        <tr key={order.id}>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            {order.id}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {order.customer}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {order.designer}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {order.product}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            ₹{order.amount.toLocaleString()}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <Badge className={getStatusColor(order.status)}>
+                              {order.status.replace('-', ' ')}
+                            </Badge>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {order.date}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                            <Button variant="outline" size="sm">
+                              View
+                            </Button>
+                            <Button variant="outline" size="sm">
+                              Edit
+                            </Button>
+                            <Button variant="outline" size="sm" className="text-red-600 border-red-300 hover:bg-red-50">
+                              Cancel
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* Custom Orders Tab */}
+            {activeTab === 'custom-orders' && (
+              <div>
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-xl font-semibold text-gray-900">Custom Orders Management</h2>
+                  <div className="flex space-x-2">
+                    <Button variant="outline">
+                      <ApperIcon name="UserPlus" size={20} className="mr-2" />
+                      Assign Designer
+                    </Button>
+                    <Button>
+                      <ApperIcon name="Plus" size={20} className="mr-2" />
+                      New Custom Order
+                    </Button>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                  <div className="bg-yellow-50 p-4 rounded-lg">
+                    <div className="flex items-center">
+                      <ApperIcon name="Clock" size={24} className="text-yellow-600 mr-3" />
+                      <div>
+                        <p className="text-sm text-yellow-600">Pending Assignment</p>
+                        <p className="text-2xl font-bold text-yellow-900">12</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <div className="flex items-center">
+                      <ApperIcon name="Zap" size={24} className="text-blue-600 mr-3" />
+                      <div>
+                        <p className="text-sm text-blue-600">In Progress</p>
+                        <p className="text-2xl font-bold text-blue-900">25</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-green-50 p-4 rounded-lg">
+                    <div className="flex items-center">
+                      <ApperIcon name="CheckCircle" size={24} className="text-green-600 mr-3" />
+                      <div>
+                        <p className="text-sm text-green-600">Completed</p>
+                        <p className="text-2xl font-bold text-green-900">87</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Order ID
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Customer
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Type
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Designer
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Budget
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Status
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Priority
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {recentOrders.map((order) => (
+                        <tr key={order.id}>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            {order.id}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {order.customer}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {order.product.split(' ').slice(0, 2).join(' ')}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {order.designer}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            ₹{order.amount.toLocaleString()}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <Badge className={getStatusColor(order.status)}>
+                              {order.status.replace('-', ' ')}
+                            </Badge>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <Badge variant="warning" size="sm">
+                              Medium
+                            </Badge>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                            <Button variant="outline" size="sm">
+                              View
+                            </Button>
+                            <Button variant="outline" size="sm">
+                              Assign
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             )}
@@ -487,8 +783,8 @@ export default function AdminDashboard() {
               </div>
             )}
 
-            {/* Other tabs with placeholder content */}
-            {['orders', 'analytics', 'settings'].includes(activeTab) && (
+{/* Other tabs with placeholder content */}
+            {['analytics', 'settings'].includes(activeTab) && (
               <div className="text-center py-12">
                 <ApperIcon 
                   name={tabs.find(t => t.id === activeTab)?.icon || 'Settings'} 

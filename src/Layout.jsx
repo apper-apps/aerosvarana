@@ -50,11 +50,21 @@ const Layout = () => {
     return currentUser ? currentUser.role : 'guest';
   };
 
-  const navigationItems = [
-    { path: '/', label: 'Shop', icon: 'Store' },
-    { path: '/custom-order', label: 'Custom Orders', icon: 'Palette' },
-    { path: '/my-orders', label: 'My Orders', icon: 'Package' }
-  ];
+const getNavigationItems = () => {
+    const userRole = getUserRole();
+    
+    if (userRole === 'admin') {
+      return [
+        { path: '/my-orders', label: 'All Orders', icon: 'Package' }
+      ];
+    }
+    
+    return [
+      { path: '/', label: 'Shop', icon: 'Store' },
+      { path: '/custom-order', label: 'Custom Orders', icon: 'Palette' },
+      { path: '/my-orders', label: 'My Orders', icon: 'Package' }
+    ];
+  };
 
   const roleBasedNavigation = {
     designer: [
@@ -65,7 +75,8 @@ const Layout = () => {
     ]
   };
 
-const allNavItems = [
+  const navigationItems = getNavigationItems();
+  const allNavItems = [
     ...navigationItems,
     ...(roleBasedNavigation[getUserRole()] || [])
   ];

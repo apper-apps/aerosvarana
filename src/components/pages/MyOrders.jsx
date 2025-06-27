@@ -20,14 +20,24 @@ const MyOrders = () => {
     loadOrders();
   }, []);
 
-  const loadOrders = async () => {
+const loadOrders = async () => {
     setLoading(true);
     setError(null);
     
     try {
-      // In a real app, this would filter by current user's ID
-      const ordersData = await customOrderService.getAll({ customerId: 'CUST001' });
-      setOrders(ordersData);
+      // Check if user is admin to show all orders or user-specific orders
+      const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      const isAdmin = currentUser.role === 'admin';
+      
+      if (isAdmin) {
+        // Admin sees all orders
+        const ordersData = await customOrderService.getAll();
+        setOrders(ordersData);
+      } else {
+        // Regular users see only their orders
+        const ordersData = await customOrderService.getAll({ customerId: currentUser.id || 'CUST001' });
+        setOrders(ordersData);
+      }
     } catch (err) {
       setError(err.message || 'Failed to load orders');
     } finally {
@@ -112,12 +122,20 @@ const MyOrders = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
-        >
+>
           <h1 className="text-3xl font-display font-bold text-secondary mb-2">
-            My Orders
+            {(() => {
+              const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+              return currentUser.role === 'admin' ? 'All Orders' : 'My Orders';
+            })()}
           </h1>
           <p className="text-surface-600">
-            Track your custom jewelry orders and view order history
+            {(() => {
+              const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+              return currentUser.role === 'admin' 
+                ? 'Monitor and manage all customer orders across the platform'
+                : 'Track your custom jewelry orders and view order history';
+            })()}
           </p>
         </motion.div>
 
