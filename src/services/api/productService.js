@@ -1,4 +1,4 @@
-import productsData from '../mockData/products.json';
+import productsData from "@/mockData/products.json";
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -93,7 +93,13 @@ class ProductService {
     return {
       min: Math.min(...prices),
       max: Math.max(...prices)
-    };
+};
+  }
+
+  async getByDesignerId(designerId) {
+    await delay(250);
+    const designerProducts = this.products.filter(p => p.designerId === parseInt(designerId, 10));
+    return designerProducts.map(product => ({ ...product }));
   }
 
   async create(productData) {

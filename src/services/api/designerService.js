@@ -117,6 +117,38 @@ class DesignerService {
     this.designers[index].updatedAt = new Date().toISOString();
     
     return { ...this.designers[index] };
+}
+
+  async uploadJewelry(designerId, jewelryData) {
+    await delay(400);
+    
+    // First add to designer's portfolio
+    const portfolioItem = {
+      image: jewelryData.images?.[0] || '',
+      title: jewelryData.name,
+      description: jewelryData.description,
+      tags: [jewelryData.category, jewelryData.metal, ...(jewelryData.gemstones || [])],
+      metal: jewelryData.metal,
+      gemstones: jewelryData.gemstones || [],
+      completionTime: jewelryData.completionTime || '30 days'
+    };
+    
+    const updatedDesigner = await this.addPortfolioItem(designerId, portfolioItem);
+    
+    // Then add to main product catalog
+    const productService = (await import('./productService.js')).default;
+    const productData = {
+      ...jewelryData,
+      designerId: parseInt(designerId, 10),
+      source: 'designer'
+    };
+    
+    const newProduct = await productService.create(productData);
+    
+    return {
+      designer: updatedDesigner,
+      product: newProduct
+    };
   }
 
   async getSpecialties() {
@@ -130,7 +162,6 @@ class DesignerService {
     const locations = this.designers.map(d => d.location);
     return [...new Set(locations)];
   }
-
   async delete(id) {
     await delay(300);
     const index = this.designers.findIndex(d => d.Id === parseInt(id, 10));

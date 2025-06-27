@@ -1,25 +1,26 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import SearchBar from '@/components/molecules/SearchBar';
-import FilterPanel from '@/components/molecules/FilterPanel';
-import ProductGrid from '@/components/organisms/ProductGrid';
-import Button from '@/components/atoms/Button';
-import Badge from '@/components/atoms/Badge';
-import ApperIcon from '@/components/ApperIcon';
-import productService from '@/services/api/productService';
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import productService from "@/services/api/productService";
+import designerService from "@/services/api/designerService";
+import ApperIcon from "@/components/ApperIcon";
+import SearchBar from "@/components/molecules/SearchBar";
+import FilterPanel from "@/components/molecules/FilterPanel";
+import ProductGrid from "@/components/organisms/ProductGrid";
+import Badge from "@/components/atoms/Badge";
+import Button from "@/components/atoms/Button";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [metals, setMetals] = useState([]);
+  const [designers, setDesigners] = useState([]);
   const [priceRange, setPriceRange] = useState({ min: 0, max: 500000 });
   const [filters, setFilters] = useState({});
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [viewMode, setViewMode] = useState('grid');
-
   useEffect(() => {
     loadInitialData();
   }, []);
@@ -28,22 +29,24 @@ const Shop = () => {
     applyFilters();
   }, [products, filters, searchTerm]);
 
-  const loadInitialData = async () => {
+const loadInitialData = async () => {
     setLoading(true);
     setError(null);
     
     try {
-      const [productsData, categoriesData, metalsData, priceRangeData] = await Promise.all([
+      const [productsData, categoriesData, metalsData, priceRangeData, designersData] = await Promise.all([
         productService.getAll(),
         productService.getCategories(),
         productService.getMetalTypes(),
-        productService.getPriceRange()
+        productService.getPriceRange(),
+        designerService.getAll()
       ]);
 
       setProducts(productsData);
       setCategories(categoriesData);
       setMetals(metalsData);
       setPriceRange(priceRangeData);
+      setDesigners(designersData);
     } catch (err) {
       setError(err.message || 'Failed to load products');
     } finally {
@@ -103,9 +106,9 @@ const Shop = () => {
             <h1 className="text-4xl md:text-5xl font-display font-bold text-secondary mb-4">
               Exquisite Jewelry Collection
             </h1>
-            <p className="text-lg text-surface-600 max-w-2xl mx-auto">
+<p className="text-lg text-surface-600 max-w-2xl mx-auto">
               Discover our curated selection of traditional and contemporary jewelry, 
-              crafted with precision and artistry.
+              crafted with precision and artistry by master designers.
             </p>
           </motion.div>
 
@@ -130,11 +133,12 @@ const Shop = () => {
           {/* Sidebar - Filters */}
           <aside className="lg:w-80 flex-shrink-0">
             <div className="sticky top-24">
-              <FilterPanel
+<FilterPanel
                 filters={filters}
                 onFilterChange={handleFilterChange}
                 categories={categories}
                 metals={metals}
+                designers={designers}
                 priceRange={priceRange}
               />
             </div>
