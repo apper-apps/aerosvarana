@@ -8,7 +8,7 @@ import DesignerDashboard from '@/components/pages/DesignerDashboard';
 import AdminDashboard from '@/components/pages/AdminDashboard';
 import Profile from '@/components/pages/Profile';
 import MyOrders from '@/components/pages/MyOrders';
-
+import Login from '@/components/pages/Login';
 export const routes = {
   shop: {
     id: 'shop',
@@ -73,12 +73,19 @@ export const routes = {
     icon: 'Settings',
     component: AdminDashboard
   },
-  profile: {
+profile: {
     id: 'profile',
     label: 'Profile',
     path: '/profile',
     icon: 'User',
     component: Profile
+  },
+  login: {
+    id: 'login',
+    label: 'Login',
+    path: '/login',
+    icon: 'LogIn',
+    component: Login
   }
 };
 

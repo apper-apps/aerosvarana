@@ -1,20 +1,54 @@
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { toast } from 'react-toastify';
 import ApperIcon from '@/components/ApperIcon';
 import CartSidebar from '@/components/organisms/CartSidebar';
+import Login from '@/components/pages/Login';
+import userService from '@/services/api/userService';
 
 const Layout = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [currentUser, setCurrentUser] = useState({ name: 'Guest', role: 'customer' });
+  const [showLogin, setShowLogin] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
   const [cartItemCount, setCartItemCount] = useState(3);
   const location = useLocation();
+// Initialize user on component mount
+  useEffect(() => {
+    const user = userService.getCurrentUser();
+    setCurrentUser(user);
+  }, []);
 
   // Close mobile menu on route change
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location]);
+
+  const handleLogin = (user) => {
+    setCurrentUser(user);
+    setShowLogin(false);
+  };
+
+  const handleLogout = async () => {
+    if (confirm('Are you sure you want to logout?')) {
+      try {
+        await userService.logout();
+        setCurrentUser(null);
+        toast.success('Logged out successfully');
+      } catch (error) {
+        toast.error('Logout failed');
+      }
+    }
+  };
+
+  const getUserDisplayName = () => {
+    return currentUser ? currentUser.name : 'Guest';
+  };
+
+  const getUserRole = () => {
+    return currentUser ? currentUser.role : 'guest';
+  };
 
   const navigationItems = [
     { path: '/', label: 'Shop', icon: 'Store' },
@@ -31,9 +65,9 @@ const Layout = () => {
     ]
   };
 
-  const allNavItems = [
+const allNavItems = [
     ...navigationItems,
-    ...(roleBasedNavigation[currentUser.role] || [])
+    ...(roleBasedNavigation[getUserRole()] || [])
   ];
 
   return (
@@ -86,14 +120,31 @@ const Layout = () => {
                 )}
               </button>
               
-              <div className="flex items-center space-x-2 pl-4 border-l border-surface-200">
+<div className="flex items-center space-x-2 pl-4 border-l border-surface-200">
                 <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
                   <ApperIcon name="User" className="w-4 h-4 text-primary" />
                 </div>
                 <div className="text-sm">
-                  <div className="font-medium text-secondary">{currentUser.name}</div>
-                  <div className="text-surface-500 capitalize">{currentUser.role}</div>
+                  <div className="font-medium text-secondary">{getUserDisplayName()}</div>
+                  <div className="text-surface-500 capitalize">{getUserRole()}</div>
                 </div>
+                {currentUser ? (
+                  <button
+                    onClick={handleLogout}
+                    className="ml-2 p-1 text-surface-500 hover:text-accent transition-colors"
+                    title="Logout"
+                  >
+                    <ApperIcon name="LogOut" className="w-4 h-4" />
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setShowLogin(true)}
+                    className="ml-2 p-1 text-primary hover:text-primary/80 transition-colors"
+                    title="Login"
+                  >
+                    <ApperIcon name="LogIn" className="w-4 h-4" />
+                  </button>
+                )}
               </div>
             </div>
 
@@ -143,14 +194,33 @@ const Layout = () => {
                     <span className="font-medium">Cart ({cartItemCount})</span>
                   </button>
                   
-                  <div className="flex items-center space-x-3 px-4 py-3">
-                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                      <ApperIcon name="User" className="w-4 h-4 text-primary" />
+<div className="flex items-center justify-between px-4 py-3">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                        <ApperIcon name="User" className="w-4 h-4 text-primary" />
+                      </div>
+                      <div>
+                        <div className="font-medium text-secondary">{getUserDisplayName()}</div>
+                        <div className="text-sm text-surface-500 capitalize">{getUserRole()}</div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="font-medium text-secondary">{currentUser.name}</div>
-                      <div className="text-sm text-surface-500 capitalize">{currentUser.role}</div>
-                    </div>
+                    {currentUser ? (
+                      <button
+                        onClick={handleLogout}
+                        className="p-2 text-surface-500 hover:text-accent transition-colors"
+                        title="Logout"
+                      >
+                        <ApperIcon name="LogOut" className="w-4 h-4" />
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => setShowLogin(true)}
+                        className="p-2 text-primary hover:text-primary/80 transition-colors"
+                        title="Login"
+                      >
+                        <ApperIcon name="LogIn" className="w-4 h-4" />
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -166,9 +236,18 @@ const Layout = () => {
         </main>
       </div>
 
-      {/* Cart Sidebar */}
+{/* Cart Sidebar */}
       <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
 
+      {/* Login Modal */}
+      <AnimatePresence>
+        {showLogin && (
+          <Login 
+            onLogin={handleLogin}
+            onClose={() => setShowLogin(false)}
+          />
+        )}
+      </AnimatePresence>
       {/* Mobile Bottom Navigation */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-surface-200 z-40">
         <div className="flex items-center justify-around py-2">
